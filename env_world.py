@@ -15,7 +15,6 @@ class Room:
         self.actions = []
         self.connected_room_names = {}
         self.act_space = ["inventory"]
-        r
 
     def connect_room(self, room):
         if room not in self.connected_rooms:
