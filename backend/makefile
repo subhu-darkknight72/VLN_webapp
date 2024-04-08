@@ -7,3 +7,15 @@ run:
 
 super:
 	python manage.py createsuperuser
+
+# command: make push m="commit message"
+push:
+	git add -A
+	git commit -m "$(m)"
+	git push
+
+req:
+	pip freeze > requirements.txt
+
+static:
+	python manage.py collectstatic
