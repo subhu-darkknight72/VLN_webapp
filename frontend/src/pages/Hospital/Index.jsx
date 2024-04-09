@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import Base from "../../components/hospital/base";
 import FooterComponent from "../../components/footerComponent";
+import hospitalImage from "../../assets/hospital/hospitalImage.png";
 
 import Button from 'react-bootstrap/Button';
 
@@ -16,7 +17,7 @@ const HospitalIndex = () => {
             </div>
 
             <div className="flex justify-center mt-6">
-                <img src="https://github.com/subhu-darkknight72/VLN_WebApp_backend/blob/main/static/hospital/hospitalImage.png?raw=true" alt="Hospital" className="w-1/2 h-auto zoom-img transition-transform duration-500 ease-in-out hover:scale-125" />
+                <img src={hospitalImage} alt="Hospital" className="w-1/2 h-auto zoom-img transition-transform duration-500 ease-in-out hover:scale-125" />
             </div>
             <FooterComponent />
         </div>
