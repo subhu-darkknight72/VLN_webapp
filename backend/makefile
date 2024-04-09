@@ -1,3 +1,7 @@
+# command: make app app=app_name
+app:
+	python manage.py startapp $(app)
+
 mig:
 	python manage.py makemigrations
 	python manage.py migrate
