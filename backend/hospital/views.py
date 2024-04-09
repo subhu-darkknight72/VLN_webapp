@@ -26,7 +26,9 @@ class performAction(APIView):
 
         response_data = {
             "past_actions": past_actions,
-            "next_actions": next_action["action_space"]
+            "next_actions": next_action["action_space"],
+            "current_location": next_action["current_location"],
+            "current_observation": next_action["observation"]
         }
 
         return Response(response_data, status=status.HTTP_200_OK)
