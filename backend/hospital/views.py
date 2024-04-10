@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 
-from .env_world import Game
+from .model.env_world import Game
 
 initial_action = 'initialise'
 initial_observation = 'You are in the hallway. This room is called the hallway. This is the main corridor in the ground floor from which we can go to other rooms. The rooms that we can go from here are : doctor chamber #1, doctor chamber #2, general ward, icu ward, common toilet, Nurse Station. The room contains : wall poster, doctor #1, agent.'

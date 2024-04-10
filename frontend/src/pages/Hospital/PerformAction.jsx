@@ -10,7 +10,10 @@ const HospitalPerformAction = () => {
     const [nextAction, setNextAction] = useState([]);
     const [current_location, setCurrentLocation] = useState("");
     const [current_observation, setCurrentObservation] = useState("");
+    
     const [options, setOptions] = useState([]);
+    const [selectedOption, setSelectedOption] = useState('');
+
     useEffect(() => {
         axios
             .get("http://127.0.0.1:8000/hospital/performAction/")
@@ -21,6 +24,7 @@ const HospitalPerformAction = () => {
                 setCurrentObservation(response.data.current_observation);
 
                 setOptions(response.data.next_actions);
+                setSelectedOption(response.data.next_actions[0]);
             })
             .catch((error) => {
                 console.error("Error fetching data: ", error);
@@ -44,7 +48,6 @@ const HospitalPerformAction = () => {
         setSelectedOption(filteredOptions[0]);
     };
 
-    const [selectedOption, setSelectedOption] = useState('');
     const handleChange = (e) => {
         setSelectedOption(e.target.value);
     };
