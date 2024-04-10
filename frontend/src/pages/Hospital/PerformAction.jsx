@@ -110,7 +110,7 @@ const HospitalPerformAction = () => {
                             </tbody>
                         </table>
                     </div>
-                    <div className="w-1/4 flex justify-center items-center">
+                    <div className="w-1/4 flex justify-center">
                         <div className="w-full max-w-md p-8">
                             <img src={floorPlan} alt="Floor Plan" className="w-full h-auto zoom-img transition-transform duration-500 ease-in-out hover:scale-[2.5]" style={{ transformOrigin: 'top right' }} />
                         </div>
