@@ -7,8 +7,6 @@ Original file is located at
     https://colab.research.google.com/drive/1f_DY3cgFl9xPEG_xzJmIvrsARbZhiIJb
 """
 
-!pip install openai
-
 """### Language Model"""
 
 import os
@@ -55,44 +53,13 @@ for i in range(1, 50):
   if action.startswith('think:'):
     observation = 'OK.'
   else:
-    observation=    ####### GIVE THE CURRENT OBSERVATION #######
-
-  print(f'Act {i}: {action}\nObs {i}: {observation}')
-  sys.stdout.flush()
-  prompt += f' {action}\n{observation}\n>'
-
-print(init_prompt)
-
-print(prompt)
-
-file_path = '/content/mem.txt'
-
-with open(file_path, 'w', encoding='utf-8') as file:
-    file.write(prompt)
-
-file1 = '/content/mem_1.txt'
-
-with open(file1, 'r', encoding='utf-8') as file:
-    content1 = file.read()
-
-print(content1)
-
-mem = init_prompt + content1
-refl = "Feedback: In this environment, my plan was to find all the waste products in the doctor chamber and put them in the dustbin. However, after collecting only 2 waste items, and exploring only till the patient bed, I started to think that the task is completed. I should have looked for the other items which was the patient bed table in the doctor chamber which contained additional waste items. In the next trial, I will look for waste items in the patient bed table as well."
-init_prompt = mem + '\n' + refl + '\nHere is the task.\n' + ob + '\n>'
-prompt = ''
-
-import sys
-
-for i in range(1, 50):
-  action = llm(init_prompt + prompt, stop=['\n']).strip()
-  print(f"output= {action}")
-  if action.startswith('think:'):
-    observation = 'OK.'
-  else:
     observation=input("obs= ")
 
   print(f'Act {i}: {action}\nObs {i}: {observation}')
   sys.stdout.flush()
   prompt += f' {action}\n{observation}\n>'
+
+
+
+
 
