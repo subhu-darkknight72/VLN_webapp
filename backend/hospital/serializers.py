@@ -4,4 +4,4 @@ from .models import actionHistory
 class actionHistorySerializer(serializers.ModelSerializer):
     class Meta:
         model = actionHistory
-        fields = ['action', 'observation']
+        fields = ['id','action', 'observation']

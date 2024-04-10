@@ -10,11 +10,6 @@ import { Helmet } from 'react-helmet';
 const App = () => {
   return (
     <div>
-      <Helmet>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Helmet>
-      
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/hospital" element={<HospitalIndex />} />

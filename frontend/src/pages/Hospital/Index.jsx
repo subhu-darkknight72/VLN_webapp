@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 import Base from "../../components/hospital/base";
 import FooterComponent from "../../components/footerComponent";
@@ -8,6 +9,9 @@ import hospitalImage from "../../assets/hospital/hospitalImage.png";
 import Button from 'react-bootstrap/Button';
 
 const HospitalIndex = () => {
+    useEffect(() => {
+        document.title = "VLN | Hospital"; // Set your desired page title here
+      }, []);
     return (
         <div>
             <Base />

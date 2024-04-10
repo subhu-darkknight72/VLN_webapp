@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 import Base from "../components/hospital/base";
 import FooterComponent from "../components/footerComponent";
@@ -7,6 +8,9 @@ import FooterComponent from "../components/footerComponent";
 import Button from 'react-bootstrap/Button';
 
 const Home = () => {
+    useEffect(() => {
+        document.title = "VLN | Environments"; // Set your desired page title here
+      }, []);
     return (
         <div>
             <div className='mb-4'>
