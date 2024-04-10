@@ -78,7 +78,7 @@ DATABASES = {
     }
 }
 
-# DATABASES['default'] = dj_database_url.parse("postgres://vlndb_user:QrjTGcwgah5QcN5s9aRNfzvMYoqT02Gy@dpg-cnl512la73kc73crbeu0-a.oregon-postgres.render.com/vlndb")
+# Un-comment the next 2-lines for connectiong to online database
 # database_url = os.environ.get('DATABASE_URL')
 # DATABASES['default'] = dj_database_url.parse(database_url)
 
