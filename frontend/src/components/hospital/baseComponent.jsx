@@ -18,17 +18,17 @@ class BaseComponent extends Component {
 			// 		</Navbar.Collapse>
 			// 	</Container>
 			// </Navbar>
-			// add space below
+			
 			<div className='mb-4'>
-				<div class="flex justify-between p-2 space-x-4">
-					<div class="w-1/2">
-						<Link to="/hospital" class="text-xl font-semibold">Hospital</Link>
+				<div className="flex justify-between p-6 space-x-4">
+					<div className="w-1/2">
+						<Link to="/hospital" className="text-xl font-semibold">Hospital</Link>
 					</div>
-					<div class="w-2/2 flex justify-end">
-						<Link to="/" class="px-3 text-lg font-semibold hover:text-gray-500">Home</Link>
+					<div className="w-2/2 flex justify-end">
+						<Link to="/" className="px-3 text-lg font-semibold hover:text-gray-500">Home</Link>
 					</div>
 				</div>
-				<hr className="my-0 border-gray-300 flex-grow" />
+				<hr className="my-0 border-gray-300 flex-grow mt-1 mb-1" tyle={{ width: '100%' }} />
 			</div>
 		);
 	}
