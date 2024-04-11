@@ -91,4 +91,12 @@ You are in the doctor chamber. Doctors in OPD diagnose patients here. The rooms 
 OK.
 > examine doctor table
 This table belongs to the doctor who keeps his belongings. It contains: book, lamp, used plastic bottle, note pad.
+> think: Here I find a used plastic bottle. I will examine it to know whether it is a waste product or not.
+OK.
+> examine used plastic bottle
+This is an used plastic bottle
+> > think: The used plastic bottle is a waste product. I will collect it.
+OK.
+> collect used plastic bottle
+used plastic bottle added to inventory.
 >
