@@ -1,0 +1,110 @@
+Interact with the hospital environment to solve a task. Here are two examples.
+You are in the hallway. This is the main corridor in the ground floor from which we can go to other rooms. The rooms that we can go from here are : doctor chamber, general ward, common toilet. The room contains : wall poster, doctor #1.
+Your task is to : find waste products from doctor chamber and put it on dustbin.
+> think: To solve the task, I need to find waste items, collect them to my inventory, and put it in dustbin.
+OK.
+> think: First I need to find waste items from the doctor chambers. There is one doctor chamber in the hallway. I will go there and explore.
+OK.
+> go to doctor chamber
+This is the doctor chamber. Doctors in OPD diagnose patients here. The rooms that we can go from here are : hallway. The room contains : doctor table, doctor chair, patient bed, patient bed table, dustbin. 
+> think: I cannot see any waste items here. I can check all the items in this doctor chamber one by one to find any waste items, starting with doctor table.
+OK.
+> examine doctor table
+This table belongs to the doctor who keeps his belongings. It contains: book, lamp, used plastic bottle, note pad.
+> think: Here I find a used plastic bottle. I will examine it to know whether it is a waste product or not.
+OK.
+> examine used plastc bottle
+This is an used plastic bottle which is a waste product. Dispose it!
+> think: The used plastic bottle is a waste product. I will collect it.
+OK.
+> collect used plastic bottle
+used plastic bottle added to the inventory. 
+> think: I have collected one waste item. I will continue exploring all remaining items in the doctor chamber to find other waste products if there is any.
+OK.
+> examine doctor chair
+This chair belongs to the doctor. It is near the doctor table.
+> examine patient bed
+This bed in the doctor chamber is used to diagnose OPD patients by the doctor.
+> examine patient bed table
+This bed table is beside the patient's bed.
+> think: I have explored all the items in the doctor's chamber and have collected the waste products. Now, I need to put the waste items in the dustbin. I will check my inventory for the collect waste items.
+OK.
+> inventory
+Your inventory includes : used plastic bottle.
+> put used plastic bottle on dustbin
+plastic bottle is put on the dustbin. Task Completed.You are in the hallway. This is the main corridor in the ground floor from which we can go to other rooms. The rooms that we can go from here are : doctor chamber-1, doctor chamber-2, general ward, common toilet, hallway nurse station. The room contains : wall poster, doctor #1.
+Your task is to : find waste products from all the doctor chambers and put them on dustbin.
+> think: To solve the task, I need to find waste items from all the doctor chambers, collect them to my inventory, and put it on the dustbin.
+OK.
+> think: I can see there are two doctor chambers. I will go to each one of them, explore them one by one, collect waste items and put it on any available dustbin.
+OK.
+> go to doctor chamber-1
+This is the doctor chamber-1. Doctors in OPD diagnose patients here. The rooms that we can go from here are : hallway. The room contains : doctor table, doctor chair, patient bed, patient bed table, dustbin. 
+> think: I cannot see any waste items here. I can check all the items in this doctor chamber one by one to find any waste items, starting with doctor table.
+OK.
+> examine doctor table
+This table belongs to the doctor who keeps his belongings. It contains: pen, note pad, bottle.
+> examine doctor chair
+This chair belongs to the doctor. It is near the doctor table.
+> examine patient bed
+This bed in the doctor chamber is used to diagnose OPD patients by the doctor.
+> examine patient bed table
+This bed table is beside the patient's bed. It contains : used bandage.
+> think: Here I find a used bandage, which is a waste product. I will collect it in my inventory.
+OK.
+> collect used bandage.
+used bandage added to the inventory.
+> think: I have explored this doctor chamber. I will now go to the other doctor chamber to find waste products.
+OK.
+> go to hallway
+You are in the hallway. This is the main corridor in the ground floor from which we can go to other rooms. The rooms that we can go from here are : doctor chamber-1, doctor chamber-2, general ward, common toilet, hallway nurse station. The room contains : wall poster, doctor #1.
+> go to doctor chamber-2
+This is the doctor chamber-1. Doctors in OPD diagnose patients here. The rooms that we can go from here are : hallway. The room contains : doctor table, doctor chair, dustbin, banana peel.
+> think: I can see a banana peel in this doctor chamber which is a waste product. I will collect it.
+OK.
+> collect banana peel
+banana peel added to the inventory. 
+> think: I have collected one waste item. I will continue exploring all remaining items in the doctor chamber to find other waste products if there is any.
+OK.
+> examine doctor table
+This table belongs to the doctor who keeps his belongings.
+> examine doctor chair
+This chair belongs to the doctor. It is near the doctor table.
+> think: I have explored all the doctor chambers. I can see that there is a dustbin in the room. I will check what are the waste products I have collected.
+OK.
+> inventory
+Your inventory includes : used bandage, banana peel.
+> think: I will put the waste items in the dustbin one by one.
+OK.
+> put used bandage on dustbin
+used bandage is put on the dustbin.
+> put banana peel on dustbin
+banana peel is put on the dustbin. Task completed.
+Here is the task.
+You are in the hallway. This is the main corridor in the ground floor from which we can go to other rooms. The rooms that we can go from here are : doctor chamber, general ward, common toilet, hallway nurse station. The room contains : wall poster, doctor #1. 
+Your task is to : find all the waste products from the doctor chamber and put them on dustbin.
+>
+ > think: To solve the task, I need to find waste items from the doctor chamber, collect them to my inventory, and put it in the dustbin.
+OK.
+>
+ go to doctor chamber
+You are in the doctor chamber. Doctors in OPD diagnose patients here. The rooms that we can go from here are : hallway. The room contains : doctor table, doctor chair, patient bed, patient bed table, dustbin.
+>
+ > think: I cannot see any waste items here. I can check all the items in this doctor chamber one by one to find any waste items, starting with doctor table.
+OK.
+>
+ examine doctor table
+
+>
+ This table belongs to the doctor who keeps his belongings. It contains: book, lamp, used plastic bottle, note pad.
+This table belongs to the doctor who keeps his belongings. It contains: book, lamp, used plastic bottle, note pad.
+>
+ > think: Here I find a used plastic bottle. I will examine it to know whether it is a waste product or not.
+OK.
+>
+ examine used plastic bottle
+This is an used plastic bottle
+>
+ > think: The used plastic bottle is a waste product. I will collect it.
+OK.
+>
