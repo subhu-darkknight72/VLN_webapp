@@ -83,28 +83,12 @@ banana peel is put on the dustbin. Task completed.
 Here is the task.
 You are in the hallway. This is the main corridor in the ground floor from which we can go to other rooms. The rooms that we can go from here are : doctor chamber, general ward, common toilet, hallway nurse station. The room contains : wall poster, doctor #1. 
 Your task is to : find all the waste products from the doctor chamber and put them on dustbin.
->
- > think: To solve the task, I need to find waste items from the doctor chamber, collect them to my inventory, and put it in the dustbin.
+> think: To solve the task, I need to find waste items from the doctor chamber, collect them to my inventory, and put it in the dustbin.
 OK.
->
- go to doctor chamber
+> go to doctor chamber
 You are in the doctor chamber. Doctors in OPD diagnose patients here. The rooms that we can go from here are : hallway. The room contains : doctor table, doctor chair, patient bed, patient bed table, dustbin.
->
- > think: I cannot see any waste items here. I can check all the items in this doctor chamber one by one to find any waste items, starting with doctor table.
+> think: I cannot see any waste items here. I can check all the items in this doctor chamber one by one to find any waste items, starting with doctor table.
 OK.
->
- examine doctor table
-
->
- This table belongs to the doctor who keeps his belongings. It contains: book, lamp, used plastic bottle, note pad.
+> examine doctor table
 This table belongs to the doctor who keeps his belongings. It contains: book, lamp, used plastic bottle, note pad.
->
- > think: Here I find a used plastic bottle. I will examine it to know whether it is a waste product or not.
-OK.
->
- examine used plastic bottle
-This is an used plastic bottle
->
- > think: The used plastic bottle is a waste product. I will collect it.
-OK.
 >

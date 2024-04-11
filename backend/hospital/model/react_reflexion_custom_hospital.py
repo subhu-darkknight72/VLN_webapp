@@ -40,17 +40,17 @@ def llm(prompt, stop=['\n']):
 		stop=stop)
 	return response.choices[0].message.content
 
-prompt_file = 'react_waste_2.json'
-with open(prompt_file, 'r') as f:
-    d = json.load(f)
 
-init_prompt = 'Interact with the hospital environment to solve a task. Here are two examples.\n' + d[f'react_waste_1'] + d[f'react_waste_2'] + '\nHere is the task.\n'
-# Evaluate variation-4
-ob = "You are in the hallway. This is the main corridor in the ground floor from which we can go to other rooms. The rooms that we can go from here are : doctor chamber, general ward, common toilet, hallway nurse station. The room contains : wall poster, doctor #1. \nYour task is to : find all the waste products from the doctor chamber and put them on dustbin."
-init_prompt = init_prompt + ob + '\n>'
-prompt = ''
 
 filename = 'prompts.txt'
+prompt_file = 'react_waste_2.json'
+with open(prompt_file, 'r') as f:
+	d = json.load(f)
+init_prompt = 'Interact with the hospital environment to solve a task. Here are two examples.\n' + d[f'react_waste_1'] + d[f'react_waste_2'] + '\nHere is the task.\n'
+	# Evaluate variation-4
+ob = "You are in the hallway. This is the main corridor in the ground floor from which we can go to other rooms. The rooms that we can go from here are : doctor chamber, general ward, common toilet, hallway nurse station. The room contains : wall poster, doctor #1. \nYour task is to : find all the waste products from the doctor chamber and put them on dustbin."
+init_prompt = init_prompt + ob + '\n>'
+
 # with open(filename , 'w') as f:
 # 	f.write(init_prompt+'\n')
 
@@ -75,7 +75,13 @@ filename = 'prompts.txt'
 # 	with open(filename , 'a') as f:
 # 		f.write(new_prompt+'\n')
 
-while True:
+def get_action_response():
+	# check if file exists
+	if not os.path.exists(filename):
+		with open(filename , 'w') as f:
+			f.write(init_prompt)
+
+	prompt = ''
 	# read prompt from file
 	with open(filename , 'r') as f:
 		prompt = f.read()
@@ -98,4 +104,6 @@ while True:
 	with open (filename , 'a') as f:
 		f.write(new_prompt)
 
-	
+	return action
+
+get_action_response()
