@@ -8,6 +8,7 @@ from rest_framework.views import APIView
 
 # from .model.env_world import Game
 from .model.env_new import Game
+from .model.react_reflexion_custom_hospital import LLM
 
 initial_action = 'initialise'
 initial_observation = 'You are in the hallway. This is the main corridor in the ground floor from which we can go to other rooms. \nThe rooms that we can go from here are : doctor chamber, general ward, common toilet, hallway nurse station. \nThe room contains : wall poster, doctor #1.'
@@ -52,7 +53,30 @@ class performAction(APIView):
         observation = next_action["observation"]
         
         actionHistory.objects.create(action=action, observation=observation)
+        response_data = {
+            "observation": observation
+        }
+        return Response(response_data, status=status.HTTP_201_CREATED)
+    
+class actionRecommendation(APIView):
+    def get(self, request, *args, **kwargs):
+        model = LLM()
+        action = model.get_action_response()
+        return Response(action, status=status.HTTP_200_OK)
+    
+    def post(self, request, *args, **kwargs):
+        action = request.data.get('action')
+        observation = request.data.get('observation')
+        model = LLM()
+        model.add_obv_to_prompt(action, observation)
         return Response(status=status.HTTP_201_CREATED)
+    
+    def delete(self, request, *args, **kwargs):
+        global task
+        model = LLM()
+        model.create_initial_prompt(task=task)
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 class resetActions(generics.DestroyAPIView):
     # delete all records in the actionHistory table and Add the default initial record
@@ -61,4 +85,3 @@ class resetActions(generics.DestroyAPIView):
         actionHistory.objects.all().delete()
         actionHistory.objects.create(action=initial_action, observation=initial_observation)
         return Response(status=status.HTTP_204_NO_CONTENT)
-

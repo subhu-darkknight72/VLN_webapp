@@ -7,6 +7,7 @@ import floorPlan from "../../assets/hospital/floorPlans/sampleFloorPlan.png";
 
 const HospitalPerformAction = () => {
     const [pastActions, setPastActions] = useState([]);
+    const [recommendedAction, setRecommendedAction] = useState("");
     const [nextAction, setNextAction] = useState([]);
     const [current_location, setCurrentLocation] = useState("");
     const [current_observation, setCurrentObservation] = useState("");
@@ -25,6 +26,15 @@ const HospitalPerformAction = () => {
 
                 setOptions(response.data.next_actions);
                 setSelectedOption(response.data.next_actions[0]);
+            })
+            .catch((error) => {
+                console.error("Error fetching data: ", error);
+            });
+        
+        axios
+            .get("http://127.0.0.1:8000/hospital/actionRecommendation/")
+            .then((response) => {
+                setRecommendedAction(response.data);
             })
             .catch((error) => {
                 console.error("Error fetching data: ", error);
@@ -48,25 +58,46 @@ const HospitalPerformAction = () => {
         setSelectedOption(filteredOptions[0]);
     };
 
+    const handleSelectRecommendation = (e) => {
+        if (recommendedAction === '') {
+            return;
+        }
+        setSelectedOption(recommendedAction);
+    };
+
     const handleChange = (e) => {
         setSelectedOption(e.target.value);
     };
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log('Selected option:', selectedOption);
-        if (selectedOption == '-') {
+        if (selectedOption == '-' || !options.includes(selectedOption)) {
             alert("Please select valid action");
             return;
         }
-        let reqBody = {
+        const reqBody = {
             "action": selectedOption
         }
+
         axios
             .post("http://127.0.0.1:8000/hospital/performAction/", reqBody)
             .then((response) => {
                 console.log(response);
                 if (response.status === 201 || response.status === 200) {
-                    window.location.reload();
+                    const new_obv = response.data.observation;
+                    const addToRecomendation = {
+                        "action": selectedOption,
+                        "observation": new_obv
+                    }
+                    axios
+                        .post("http://127.0.0.1:8000/hospital/actionRecommendation/", addToRecomendation)
+                        .then((response) => {
+                            console.log(response);
+                            if (response.status !== 201 || response.status !== 200) {
+                                alert("Error adding to recommendation");
+                            }
+                        })
+                        window.location.reload();
                 }
                 else {
                     alert("Error performing action");
@@ -81,6 +112,14 @@ const HospitalPerformAction = () => {
             .then((response) => {
                 console.log(response);
                 if (response.status === 204 || response.status === 201 || response.status === 200) {
+                    axios
+                        .delete("http://127.0.0.1:8000/hospital/actionRecommendation/")
+                        .then((response) => {
+                            console.log(response);
+                            if (response.status !== 204 && response.status !== 201 && response.status !== 200) {
+                                alert("Error deleting recommendation");
+                            }
+                        })
                     window.location.reload();
                 }
                 else {
@@ -129,7 +168,20 @@ const HospitalPerformAction = () => {
                 <div className="mx-6">
                     <form id="getNextAction" onSubmit={handleSubmit}>
                         <label> 
-                            <div className=" py-2 block text-gray-700 text-2xl font-bold mb-2">Next Action:</div>
+                            <div className="flex py-2 block mb-2 align-text-bottom">
+                                {/* <div className="w-1/5 py-2 block text-gray-700 text-2xl font-bold mb-2">Next Action:</div> */}
+                                {/* Show two text boxes side by side */}
+                                <div className="mr-6 items-center">
+                                    <label className="text-gray-700 text-2xl font-bold">Next Action:</label>
+                                </div>
+                                <div className="flex-1 flex items-center">
+                                    <label className="flex flex-col block text-gray-400 hover:text-gray-500 hover:text-xl"
+                                        onClick={handleSelectRecommendation}       
+                                    >{"{ "+recommendedAction+" }"}</label>
+                                </div>
+
+
+                            </div>
                             <input 
                                 type="text" 
                                 className="px-4 py-2 shadow appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 

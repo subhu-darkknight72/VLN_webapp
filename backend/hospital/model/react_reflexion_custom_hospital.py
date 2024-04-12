@@ -14,17 +14,8 @@ class LLM:
 			api_version=os.getenv('AZUREOPENAI_API_VERSION')
 		)
 
-		self.filename = 'prompts.txt'
-		self.prompt_file = 'react_waste_2.json'
-		
-	def create_initial_prompt(self):
-		with open(self.prompt_file, 'r') as f:
-			d = json.load(f)
-		init_prompt = 'Interact with the hospital environment to solve a task. Here are two examples.\n' + d[f'react_waste_1'] + d[f'react_waste_2'] + '\nHere is the task.\n'
-		ob = "You are in the hallway. This is the main corridor in the ground floor from which we can go to other rooms. The rooms that we can go from here are : doctor chamber, general ward, common toilet, hallway nurse station. The room contains : wall poster, doctor #1. \nYour task is to : find all the waste products from the doctor chamber and put them on dustbin."
-		init_prompt = init_prompt + ob + '\n>'
-		with open(self.filename , 'w') as f:
-			f.write(init_prompt)
+		self.filename = '/Users/subhu/Desktop/Sem/Sem_8/BTP/VLN_webapp/backend/hospital/model/prompts.txt'
+		self.prompt_file = '/Users/subhu/Desktop/Sem/Sem_8/BTP/VLN_webapp/backend/hospital/model/react_waste_2.json'
 
 	def llm(self, prompt, stop=['\n']):
 		response = self.client.chat.completions.create(
@@ -38,8 +29,17 @@ class LLM:
 			presence_penalty=0,
 			stop=stop)
 		return response.choices[0].message.content
-
 		
+	def create_initial_prompt(self, task=""):
+		with open(self.prompt_file, 'r') as f:
+			d = json.load(f)
+		init_prompt = 'Interact with the hospital environment to solve a task. Here are two examples.\n' + d[f'react_waste_1'] + d[f'react_waste_2'] + '\nHere is the task.\n'
+		ob = "You are in the hallway. This is the main corridor in the ground floor from which we can go to other rooms. The rooms that we can go from here are : doctor chamber, general ward, common toilet, hallway nurse station. The room contains : wall poster, doctor #1. \nYour task is to : "
+		prompt = init_prompt + ob + task + '\n>'
+		with open(self.filename , 'w') as f:
+			f.write(prompt)
+		return
+	
 	def get_action_response(self):
 		# check if file exists
 		if not os.path.exists(self.filename):
@@ -68,6 +68,8 @@ class LLM:
 		return
 
 # model = LLM()
+# task = "Find all the waste products from the doctor chamber and put them on dustbin."
+# model.create_initial_prompt(task=task)
 # action = model.get_action_response()
 # print(action)
 # observation = input('Enter observation: ')
