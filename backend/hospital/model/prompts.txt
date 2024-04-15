@@ -85,4 +85,6 @@ You are in the hallway. This is the main corridor in the ground floor from which
 Your task is to : Your task is to dispose waste products inside the doctor chambers. Take actions to first go to each of the doctor chambers and explore the rooms to find waste products. Collect waste items and dispose them to dustbin.
 > think: To solve the task, I need to find waste items from the doctor chambers, collect them to my inventory, and put it in the dustbin.
 OK.
+> think: I can see there is one doctor chamber. I will go there, explore it, collect waste items and put it on any available dustbin.
+OK.
 >

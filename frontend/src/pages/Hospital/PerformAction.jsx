@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import SpinnerComponent from "../../components/spinnerComponent";
 
 import Base from "../../components/hospital/base";
 import FooterComponent from "../../components/footerComponent";
@@ -15,7 +16,10 @@ const HospitalPerformAction = () => {
     const [options, setOptions] = useState([]);
     const [selectedOption, setSelectedOption] = useState('');
 
+    const [recommendationLoading, setRecommendationLoading] = useState(true);
+
     useEffect(() => {
+        setRecommendationLoading(true);
         axios
             .get("http://127.0.0.1:8000/hospital/performAction/")
             .then((response) => {
@@ -34,7 +38,13 @@ const HospitalPerformAction = () => {
         axios
             .get("http://127.0.0.1:8000/hospital/actionRecommendation/")
             .then((response) => {
-                setRecommendedAction(response.data);
+                let recommendedAction = response.data;
+                console.log("Recommended Action: ", recommendedAction);
+                if (recommendedAction.startsWith("> ")) {
+                    recommendedAction = recommendedAction.slice(2);
+                }
+                setRecommendedAction(recommendedAction);
+                setRecommendationLoading(false);
             })
             .catch((error) => {
                 console.error("Error fetching data: ", error);
@@ -169,18 +179,31 @@ const HospitalPerformAction = () => {
                     <form id="getNextAction" onSubmit={handleSubmit}>
                         <label> 
                             <div className="flex py-2 block mb-2 align-text-bottom">
-                                {/* <div className="w-1/5 py-2 block text-gray-700 text-2xl font-bold mb-2">Next Action:</div> */}
-                                {/* Show two text boxes side by side */}
                                 <div className="mr-6 items-center">
                                     <label className="text-gray-700 text-2xl font-bold">Next Action:</label>
                                 </div>
                                 <div className="flex-1 flex items-center">
-                                    <label className="flex flex-col block text-gray-400 hover:text-gray-500 hover:text-xl"
-                                        onClick={handleSelectRecommendation}       
-                                    >{"{ "+recommendedAction+" }"}</label>
+                                    <button type="button" className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-teal-300 to-lime-300 group-hover:from-teal-300 group-hover:to-lime-300 focus:ring-4 focus:outline-none focus:ring-lime-200">
+                                        {
+                                            recommendationLoading ?
+                                            // <SpinnerComponent />
+                                            <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white rounded-md group-hover:bg-opacity-0"
+                                            >
+                                                Loading...
+                                            </span>
+                                            :
+                                            <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white rounded-md group-hover:bg-opacity-0"
+                                                onClick={handleSelectRecommendation}
+                                            >
+                                                {recommendedAction}
+                                            </span>
+                                            
+                                            // <label className="flex flex-col block text-gray-400 hover:text-gray-500 hover:text-xl"
+                                            //     onClick={handleSelectRecommendation}       
+                                            // ></label>
+                                        }
+                                    </button>
                                 </div>
-
-
                             </div>
                             <input 
                                 type="text" 
