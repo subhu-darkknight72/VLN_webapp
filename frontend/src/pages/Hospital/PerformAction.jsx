@@ -99,6 +99,13 @@ const HospitalPerformAction = () => {
                         "action": selectedOption,
                         "observation": new_obv
                     }
+                    let successMssg = "successfully completed the task";
+                    // if the new observation is not empty, and contains the success message
+                    // then alert the user that the task is completed
+                    if (new_obv !== '' && new_obv.includes(successMssg)) {
+                        alert("Task completed");
+                    }
+                    
                     axios
                         .post("http://127.0.0.1:8000/hospital/actionRecommendation/", addToRecomendation)
                         .then((response) => {
