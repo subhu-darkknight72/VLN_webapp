@@ -115,76 +115,76 @@ class Game:
         ###########################################################    ROOMS     ###############################################################
         if True:
             ### ROOMS ###
-            hall = Room("hallway", "You are in the hallway. This is the main corridor in the ground floor from which we can go to other rooms. ")
-            ch = Room("doctor chamber", "You are in the doctor chamber. Doctors in OPD diagnose patients here. ")
-            gen_ward = Room("general ward", "You are in the general ward. There are a total of 5 beds with a nurse station who carries the information of the patients. ")
-            comm_toilet = Room("common toilet", "You are in the common toilet. This has a single occupancy. ")
-            hall_nurse_st = Room("hallway nurse station", "You are in the nurse station. Nurses are stationed here. ")
+            self.hall = Room("hallway", "You are in the hallway. This is the main corridor in the ground floor from which we can go to other rooms. ")
+            self.ch = Room("doctor chamber", "You are in the doctor chamber. Doctors in OPD diagnose patients here. ")
+            self.gen_ward = Room("general ward", "You are in the general ward. There are a total of 5 beds with a nurse station who carries the information of the patients. ")
+            self.comm_toilet = Room("common toilet", "You are in the common toilet. This has a single occupancy. ")
+            self.hall_nurse_st = Room("hallway nurse station", "You are in the nurse station. Nurses are stationed here. ")
 
             ### CONNECT ROOMS ###
-            hall.connect_room(ch)
-            hall.connect_room(gen_ward)
-            hall.connect_room(comm_toilet)
-            hall.connect_room(hall_nurse_st)
+            self.hall.connect_room(self.ch)
+            self.hall.connect_room(self.gen_ward)
+            self.hall.connect_room(self.comm_toilet)
+            self.hall.connect_room(self.hall_nurse_st)
 
             #### Adding Actions to Rooms ####
-            hall.add_action("go to")
-            ch.add_action("go to")
-            gen_ward.add_action("go to")
-            comm_toilet.add_action("go to")
-            hall_nurse_st.add_action("go to")
+            self.hall.add_action("go to")
+            self.ch.add_action("go to")
+            self.gen_ward.add_action("go to")
+            self.comm_toilet.add_action("go to")
+            self.hall_nurse_st.add_action("go to")
         ###########################################################     ITEMS     ###############################################################
         if True:
             #### --------- HALLWAY ----------- ####
-            poster = Item("wall poster", "This is a poster comprising a picture of a baby boy smiling. ")
-            doctor1 = Item("doctor #1", "He is doctor Ram specializes in orthopedics. ")
-            hall.add_item(poster)
-            hall.add_item(doctor1)
-            hall.add_action("examine")
+            self.poster = Item("wall poster", "This is a poster comprising a picture of a baby boy smiling. ")
+            self.doctor1 = Item("doctor #1", "He is doctor Ram specializes in orthopedics. ")
+            self.hall.add_item(self.poster)
+            self.hall.add_item(self.doctor1)
+            self.hall.add_action("examine")
 
             #### -------------------- DOCTOR CHAMBER ----------------------- ####
-            doc_table = Item("doctor table", "This table belongs to the doctor who keeps his belongings. ")
-            doc_chair = Item("doctor chair", "This chair belongs to the doctor. It is near the doctor table. ")
-            doc_bed = Item("patient bed", "This bed in the doctor chamber is used to diagnose OPD patients by the doctor. ")
-            doc_bedtable = Item("patient bed table", "This bed table is beside the patient bed. ")
-            bin = Item("dustbin", "A dustbin for disposing waste materials")
+            self.doc_table = Item("doctor table", "This table belongs to the doctor who keeps his belongings. ")
+            self.doc_chair = Item("doctor chair", "This chair belongs to the doctor. It is near the doctor table. ")
+            self.doc_bed = Item("patient bed", "This bed in the doctor chamber is used to diagnose OPD patients by the doctor. ")
+            self.doc_bedtable = Item("patient bed table", "This bed table is beside the patient bed. ")
+            self.dustbin = Item("dustbin", "A dustbin for disposing waste materials")
 
-            book = Item("book", "This is an old leather-bound book.", is_static=False)
-            lamp = Item("lamp", "This is a small electric lamp.", is_static=False)
-            note_pad = Item("note pad", "This is a notebook for the doctor to write notes", is_static=False)
-            bottle = Item("used plastic bottle", "This is an used plastic bottle", is_static=False)
+            self.book = Item("book", "This is an old leather-bound book.", is_static=False)
+            self.lamp = Item("lamp", "This is a small electric lamp.", is_static=False)
+            self.note_pad = Item("note pad", "This is a notebook for the doctor to write notes", is_static=False)
+            self.bottle = Item("used plastic bottle", "This is an used plastic bottle", is_static=False)
 
-            doc_table.add_item(book)
-            doc_table.add_item(lamp)
-            doc_table.add_item(bottle)
-            doc_table.add_item(note_pad)
+            self.doc_table.add_item(self.book)
+            self.doc_table.add_item(self.lamp)
+            self.doc_table.add_item(self.bottle)
+            self.doc_table.add_item(self.note_pad)
 
-            ch.add_item(doc_table)
-            ch.add_item(doc_chair)
-            ch.add_item(doc_bed)
-            ch.add_item(doc_bedtable)
-            ch.add_item(bin)
-            ch.add_action("examine")
-            ch.add_action("collect")
+            self.ch.add_item(self.doc_table)
+            self.ch.add_item(self.doc_chair)
+            self.ch.add_item(self.doc_bed)
+            self.ch.add_item(self.doc_bedtable)
+            self.ch.add_item(self.dustbin)
+            self.ch.add_action("examine")
+            self.ch.add_action("collect")
 
             ####-------------------- GENERAL WARD ------------------####
-            nurse1 = Item("nurse", "This is a nurse. This nurse have information about where to collect waste information. ")
-            pat_bed1 = Item("patient bed-1", "This bed belongs to patient #1. ")
-            pat_bed2 = Item("patient bed-2", "This bed belongs to patient #2. ")
+            self.nurse1 = Item("nurse", "This is a nurse. This nurse have information about where to collect waste information. ")
+            self.pat_bed1 = Item("patient bed-1", "This bed belongs to patient #1. ")
+            self.pat_bed2 = Item("patient bed-2", "This bed belongs to patient #2. ")
 
-            gen_ward.add_item(pat_bed1)
-            gen_ward.add_item(pat_bed2)
-            gen_ward.add_item(nurse1)
-            gen_ward.add_action("examine")
+            self.gen_ward.add_item(self.pat_bed1)
+            self.gen_ward.add_item(self.pat_bed2)
+            self.gen_ward.add_item(self.nurse1)
+            self.gen_ward.add_action("examine")
 
             ####------------------------- NURSE STATION (HALLWAY) ------------------------####
-            comp_station = Item("computer station", "This is a computer station comprising of 3 computers. These are used for extracting information and registration. Can only be accessed by the nurses. ")
-            files = Item("filing cabinet", "This is the filing cabinet comprising of different patient files used during treatment by the doctors and nurses. ")
-            hall_nurse_st.add_item(comp_station)
-            hall_nurse_st.add_item(files)
-            hall_nurse_st.add_action("examine")
+            self.comp_station = Item("computer station", "This is a computer station comprising of 3 computers. These are used for extracting information and registration. Can only be accessed by the nurses. ")
+            self.files = Item("filing cabinet", "This is the filing cabinet comprising of different patient files used during treatment by the doctors and nurses. ")
+            self.hall_nurse_st.add_item(self.comp_station)
+            self.hall_nurse_st.add_item(self.files)
+            self.hall_nurse_st.add_action("examine")
 
-        return hall    
+        return self.hall    
     
     #### Action Functions ####
     def add_to_inventory(self, item_name):
@@ -270,8 +270,8 @@ class Game:
                 self.obs = self.put_item(item_name, target_name)
 
                 # Check for dustbin status
-                if bin.contains:
-                    items = [i.name for i in bin.contains]
+                if self.dustbin.contains:
+                    items = [i.name for i in self.dustbin.contains]
                     if(all(x in items for x in self.waste_info)):
                         self.flag = True
                         self.obs = "You have put waste products in the dustbin and have successfully completed the task!"
