@@ -14,7 +14,7 @@ class LLM:
 			api_version=os.getenv('AZUREOPENAI_API_VERSION')
 		)
 
-		self.filename = '/Users/subhu/Desktop/Sem/Sem_8/BTP/VLN_webapp/backend/hospital/model/prompts.txt'
+		# self.filename = '/Users/subhu/Desktop/Sem/Sem_8/BTP/VLN_webapp/backend/hospital/model/prompts.txt'
 		self.prompt_file = '/Users/subhu/Desktop/Sem/Sem_8/BTP/VLN_webapp/backend/hospital/model/react_waste_2.json'
 
 	def llm(self, prompt, stop=['\n']):
@@ -36,20 +36,20 @@ class LLM:
 		init_prompt = 'Interact with the hospital environment to solve a task. Here are two examples.\n' + d[f'react_waste_1'] + d[f'react_waste_2'] + '\nHere is the task.\n'
 		ob = "You are in the hallway. This is the main corridor in the ground floor from which we can go to other rooms. The rooms that we can go from here are : doctor chamber, general ward, common toilet, hallway nurse station. The room contains : wall poster, doctor #1. \nYour task is to : "
 		prompt = init_prompt + ob + task + '\n>'
-		with open(self.filename , 'w') as f:
-			f.write(prompt)
-		return
+		# with open(self.filename , 'w') as f:
+		# 	f.write(prompt)
+		return prompt
 	
-	def get_action_response(self):
-		# check if file exists
-		if not os.path.exists(self.filename):
-			self.create_initial_prompt()
+	def get_action_response(self, prompt=''):
+		# # check if file exists
+		# if not os.path.exists(self.filename):
+		# 	self.create_initial_prompt()
 
-		prompt = ''
-		# read prompt from file
-		with open(self.filename , 'r') as f:
-			prompt = f.read()
-
+		# prompt = ''
+		# # read prompt from file
+		# with open(self.filename , 'r') as f:
+		# 	prompt = f.read()
+		prompts = []
 		action = self.llm(prompt, stop=['\n']).strip()
 		# check if action contains 'think:' in any form
 		while action.find('think:') != -1:
@@ -57,19 +57,23 @@ class LLM:
 			prompt += f' {action}\n{observation}\n>'
 			new_prompt = f' {action}\n{observation}\n>'
 			action = self.llm(prompt, stop=['\n']).strip()
-			with open(self.filename , 'a') as f:
-				f.write(new_prompt)
-		return action
+			prompts.append(new_prompt)
+		response = {
+			'action': action,
+			'prompts': prompts
+		}
+		return response
 
 	def add_obv_to_prompt(self, action, observation):
 		new_prompt = f' {action}\n{observation}\n>'
-		with open (self.filename , 'a') as f:
-			f.write(new_prompt)
-		return
+		# with open (self.filename , 'a') as f:
+		# 	f.write(new_prompt)
+		return new_prompt
 
 # model = LLM()
 # task = "Find all the waste products from the doctor chamber and put them on dustbin."
-# model.create_initial_prompt(task=task)
+# prompt = model.create_initial_prompt(task=task)
+# print("Initial prompt: ", prompt)
 # action = model.get_action_response()
 # print(action)
 # observation = input('Enter observation: ')

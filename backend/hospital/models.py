@@ -19,3 +19,13 @@ class actionHistory(models.Model):
     
     # def get_string_list(self):
     #     return json.loads(self.nextAction)
+
+class promptHistory(models.Model):
+    prompt = models.CharField(max_length=100000)
+
+    def __str__(self):
+        return self.prompt
+
+    def Meta(self):
+        verbose_name = 'Prompt History'
+        verbose_name_plural = 'Prompt Histories'

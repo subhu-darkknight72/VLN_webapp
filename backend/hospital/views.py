@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework import generics
-from .models import actionHistory
+from .models import actionHistory, promptHistory
 from .serializers import actionHistorySerializer
 from rest_framework.response import Response
 from rest_framework import status
@@ -61,20 +61,33 @@ class performAction(APIView):
 class actionRecommendation(APIView):
     def get(self, request, *args, **kwargs):
         model = LLM()
-        action = model.get_action_response()
-        return Response(action, status=status.HTTP_200_OK)
+        # read all prompts from the promptHistory table and concatenate them
+        prompt = ''
+        prompts = promptHistory.objects.all()
+        for p in prompts:
+            prompt += p.prompt
+        response = model.get_action_response(prompt)
+        # save each of new prompt to the promptHistory table
+        for newPrompt in response['prompts']:
+            promptHistory.objects.create(prompt=newPrompt)
+        return Response(response['action'], status=status.HTTP_200_OK)
     
     def post(self, request, *args, **kwargs):
         action = request.data.get('action')
         observation = request.data.get('observation')
         model = LLM()
-        model.add_obv_to_prompt(action, observation)
+        response = model.add_obv_to_prompt(action, observation)
+        # save the new prompt to the promptHistory table
+        promptHistory.objects.create(prompt=response)
         return Response(status=status.HTTP_201_CREATED)
     
     def delete(self, request, *args, **kwargs):
         global task
         model = LLM()
-        model.create_initial_prompt(task=task)
+        prompt = model.create_initial_prompt(task=task)
+        # delete all records in the promptHistory table and Add the default initial record
+        promptHistory.objects.all().delete()
+        promptHistory.objects.create(prompt=prompt)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
