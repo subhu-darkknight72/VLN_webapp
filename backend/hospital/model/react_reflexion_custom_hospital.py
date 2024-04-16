@@ -15,8 +15,9 @@ class LLM:
 		)
 
 		# self.filename = '/Users/subhu/Desktop/Sem/Sem_8/BTP/VLN_webapp/backend/hospital/model/prompts.txt'
-		self.prompt_file = '/Users/subhu/Desktop/Sem/Sem_8/BTP/VLN_webapp/backend/hospital/model/react_waste_2.json'
-
+		# self.prompt_file = '/Users/subhu/Desktop/Sem/Sem_8/BTP/VLN_webapp/backend/hospital/model/react_waste_2.json'
+		self.prompt_file = 'https://github.com/subhu-darkknight72/VLN_webapp/blob/main/backend/hospital/model/react_waste_2.json'
+		
 	def llm(self, prompt, stop=['\n']):
 		response = self.client.chat.completions.create(
 			model="GPT-4-France",
