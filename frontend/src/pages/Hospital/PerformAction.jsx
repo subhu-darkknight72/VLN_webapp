@@ -6,6 +6,9 @@ import Base from "../../components/hospital/base";
 import FooterComponent from "../../components/footerComponent";
 import floorPlan from "../../assets/hospital/floorPlans/sampleFloorPlan.png";
 
+const serverURL = "https://vln-webapp.onrender.com";
+// const serverURL = "http://127.0.0.1:8000";
+
 const HospitalPerformAction = () => {
     const [pastActions, setPastActions] = useState([]);
     const [recommendedAction, setRecommendedAction] = useState("");
@@ -21,7 +24,7 @@ const HospitalPerformAction = () => {
     useEffect(() => {
         setRecommendationLoading(true);
         axios
-            .get("http://127.0.0.1:8000/hospital/performAction/")
+            .get(serverURL+"/hospital/performAction/")
             .then((response) => {
                 setPastActions(response.data.past_actions);
                 setNextAction(response.data.next_actions);
@@ -36,7 +39,7 @@ const HospitalPerformAction = () => {
             });
         
         axios
-            .get("http://127.0.0.1:8000/hospital/actionRecommendation/")
+            .get(serverURL+"/hospital/actionRecommendation/")
             .then((response) => {
                 let recommendedAction = response.data;
                 console.log("Recommended Action: ", recommendedAction);
@@ -90,7 +93,7 @@ const HospitalPerformAction = () => {
         }
 
         axios
-            .post("http://127.0.0.1:8000/hospital/performAction/", reqBody)
+            .post(serverURL+"/hospital/performAction/", reqBody)
             .then((response) => {
                 console.log(response);
                 if (response.status === 201 || response.status === 200) {
@@ -107,7 +110,7 @@ const HospitalPerformAction = () => {
                     }
                     
                     axios
-                        .post("http://127.0.0.1:8000/hospital/actionRecommendation/", addToRecomendation)
+                        .post(serverURL+"/hospital/actionRecommendation/", addToRecomendation)
                         .then((response) => {
                             console.log(response);
                             if (response.status !== 201 || response.status !== 200) {
@@ -125,12 +128,12 @@ const HospitalPerformAction = () => {
         e.preventDefault();
         console.log('Resetting...');
         axios
-            .delete("http://127.0.0.1:8000/hospital/reset/")
+            .delete(serverURL+"/hospital/reset/")
             .then((response) => {
                 console.log(response);
                 if (response.status === 204 || response.status === 201 || response.status === 200) {
                     axios
-                        .delete("http://127.0.0.1:8000/hospital/actionRecommendation/")
+                        .delete(serverURL+"/hospital/actionRecommendation/")
                         .then((response) => {
                             console.log(response);
                             if (response.status !== 204 && response.status !== 201 && response.status !== 200) {
