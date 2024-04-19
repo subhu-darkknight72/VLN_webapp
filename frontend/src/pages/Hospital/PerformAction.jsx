@@ -6,8 +6,8 @@ import Base from "../../components/hospital/base";
 import FooterComponent from "../../components/footerComponent";
 import floorPlan from "../../assets/hospital/floorPlans/sampleFloorPlan.png";
 
-// const serverURL = "https://vln-webapp.onrender.com";
-const serverURL = "http://127.0.0.1:8000";
+const serverURL = "https://vln-webapp.onrender.com";
+// const serverURL = "http://127.0.0.1:8000";
 
 const HospitalPerformAction = () => {
     const [pastActions, setPastActions] = useState([]);
