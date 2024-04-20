@@ -42,11 +42,12 @@ class mongoDB:
     
     def add_prompt(self, prompt):
         self.promptHistory.insert_one({"prompt": prompt})
+        return
     
     def reset_prompts(self, prompt):
         self.promptHistory.delete_many({})
         self.promptHistory.insert_one({"prompt": prompt})
-        print("reset_prompts done")
+        return
 
     def get_prompts(self):
         prompts = self.promptHistory.find()
