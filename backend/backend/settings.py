@@ -78,6 +78,18 @@ DATABASES = {
     }
 }
 
+# mongo_uri = os.environ.get('MONGO_URI')
+# DATABASES = {
+#         'default': {
+#             'ENGINE': 'djongo',
+#             'NAME': 'Cluster0',
+#             'ENFORCE_SCHEMA': False,
+#             'CLIENT': {
+#                 'host': mongo_uri
+#             }  
+#         }
+# }
+
 # Un-comment the next 2-lines for connectiong to online database
 database_url = os.environ.get('DATABASE_URL')
 DATABASES['default'] = dj_database_url.parse(database_url)
