@@ -93,66 +93,72 @@ const HospitalPerformAction = () => {
         }
 
         axios
-            .post(serverURL+"/hospital/performAction/", reqBody)
+        .post(serverURL+"/hospital/performAction/", reqBody)
+        .then((response) => {
+            console.log(response);
+            if (response.status === 201 || response.status === 200) {
+                alert("Error performing action");
+            }
+            
+            const new_obv = response.data.observation;
+            const addToRecomendation = {
+                "action": selectedOption,
+                "observation": new_obv
+            }
+            let successMssg = "successfully completed the task";
+            // if the new observation is not empty, and contains the success message
+            // then alert the user that the task is completed
+            if (new_obv !== '' && new_obv.includes(successMssg)) {
+                alert("Task completed");
+                return;
+            }
+            
+            axios
+            .post(serverURL+"/hospital/actionRecommendation/", addToRecomendation)
             .then((response) => {
                 console.log(response);
-                if (response.status === 201 || response.status === 200) {
-                    const new_obv = response.data.observation;
-                    const addToRecomendation = {
-                        "action": selectedOption,
-                        "observation": new_obv
-                    }
-                    let successMssg = "successfully completed the task";
-                    // if the new observation is not empty, and contains the success message
-                    // then alert the user that the task is completed
-                    if (new_obv !== '' && new_obv.includes(successMssg)) {
-                        alert("Task completed");
-                    }
-                    
-                    axios
-                        .post(serverURL+"/hospital/actionRecommendation/", addToRecomendation)
-                        .then((response) => {
-                            console.log(response);
-                            if (response.status !== 201 || response.status !== 200) {
-                                alert("Error adding to recommendation");
-                            }
-                        })
-                        // window.location.reload();
+                if (response.status !== 201 || response.status !== 200) {
+                    alert("Error adding to recommendation");
+                    return;
                 }
-                else {
-                    alert("Error performing action");
-                }
-            })
-            .then(() => {
                 window.location.reload();
             })
-            .catch((error) => {
-                console.error("Error fetching data: ", error);
-            });
-            
+        })
+        .catch((error) => {
+            console.error("Error fetching data: ", error);
+        });
+        return;
     };
     const handleReset = (e) => {
         e.preventDefault();
         console.log('Resetting...');
         axios
-            .delete(serverURL+"/hospital/actionRecommendation/")
+        .delete(serverURL+"/hospital/actionRecommendation/")
+        .then((response) => {
+            console.log(response);
+            if (response.status !== 204 && response.status !== 201 && response.status !== 200) {
+                alert("Error deleting recommendation");
+                return;
+            }
+
+            axios
+            .delete(serverURL+"/hospital/reset/")
             .then((response) => {
                 console.log(response);
-                if (response.status === 204 || response.status === 201 || response.status === 200) {
-                    axios
-                        .delete(serverURL+"/hospital/reset/")
-                        .then((response) => {
-                            console.log(response);
-                            if (response.status !== 204 && response.status !== 201 && response.status !== 200) {
-                                alert("Error deleting recommendation");
-                            }
-                        })
-                    window.location.reload();
+                if (response.status !== 204 && response.status !== 201 && response.status !== 200) {
+                    alert("Error deleting recommendation");
+                    return;
                 }
-                else {
-                    alert("Error resetting");
-                }
+                
+                window.location.reload();
             })
+            .catch((error) => {
+                console.error("Error fetching data: ", error);
+            });
+        })
+        .catch((error) => {
+            console.error("Error fetching data: ", error);
+        });
     }
 
     return (
