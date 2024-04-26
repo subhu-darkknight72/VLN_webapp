@@ -67,30 +67,39 @@ const HospitalIndex = () => {
             .post(serverURL+"/hospital/task/", payload)
             .then((response) => {
                 console.log(response);
+                console.log("Task entered")
+                if (response.status !== 204 && response.status !== 201 && response.status !== 200) {
+                    alert("Error entering task");
+                    return;
+                }
                 axios
                 .delete(serverURL+"/hospital/reset/")
                 .then((response) => {
                     console.log(response);
-                    if (response.status === 204 || response.status === 201 || response.status === 200) {
-                        axios
-                            .delete(serverURL+"/hospital/actionRecommendation/")
-                            .then((response) => {
-                                console.log(response);
-                                if (response.status !== 204 && response.status !== 201 && response.status !== 200) {
-                                    alert("Error deleting recommendation");
-                                }
-                            })
+                    console.log("Hospital reset")
+                    if (response.status !== 204 && response.status !== 201 && response.status !== 200) {
+                        alert("Error resetting hospital");
+                        return;
                     }
-                    else {
-                        alert("Error resetting");
-                    }
+                    
+                    axios
+                    .delete(serverURL+"/hospital/actionRecommendation/")
+                    .then((response) => {
+                        console.log(response);
+                        console.log("Recommendation deleted")
+                        if (response.status !== 204 && response.status !== 201 && response.status !== 200) {
+                            alert("Error deleting recommendation");
+                            return;
+                        }
+                        window.location.href = "/hospital/perform-action";
+                    })
                 })
-    
-                window.location.href = "/hospital/perform-action";
             })
             .catch((error) => {
                 console.log(error);
             });
+
+        return;
     };
 
     const handleReset = (e) => {
@@ -109,6 +118,7 @@ const HospitalIndex = () => {
             .catch((error) => {
                 console.log(error);
             });
+        return;
     }
 
     return (
