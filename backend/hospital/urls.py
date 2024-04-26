@@ -5,4 +5,6 @@ urlpatterns = [
     path('performAction/', views.performAction.as_view(), name='performActionHospital'),
     path('reset/', views.resetActions.as_view(), name='resetActionHospital'),
     path('actionRecommendation/', views.actionRecommendation.as_view(), name='actionRecommendationHospital'),
+    path('task/', views.task.as_view(), name='taskHospital'),
+
 ]

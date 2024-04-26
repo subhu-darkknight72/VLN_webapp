@@ -10,6 +10,7 @@ class mongoDB:
         self.db = self.client['Cluster0']
         self.actionHistory = self.db['hospital_actionHistory']
         self.promptHistory = self.db['hospital_promptHistory']
+        self.taskHistory = self.db['hospital_taskHistory']
 
     # get all actions from the actionHistory table
     def get_actions(self):
@@ -49,6 +50,27 @@ class mongoDB:
         self.promptHistory.insert_one({"prompt": prompt})
         return
 
-    def get_prompts(self):
-        prompts = self.promptHistory.find()
-        return prompts
+    # get last task from the taskHistory table
+    def get_task(self):
+        # get all tasks from the taskHistory table
+        tasks = self.taskHistory.find()
+        # return all tasks as a list of strings
+        result = []
+        for task in tasks:
+            result.append(task['task'])
+        response = {
+            "recent": result[-1],
+            "all": list(set(result))
+        }
+        return response
+    
+    # add new entry to tasks table
+    def add_task(self, task):
+        self.taskHistory.insert_one({"task": task})
+        return
+
+    def reset_tasks(self, taskList):
+        self.taskHistory.delete_many({})
+        for task in taskList:
+            self.taskHistory.insert_one({"task": task})
+        return

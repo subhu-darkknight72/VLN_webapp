@@ -24,7 +24,7 @@ const HospitalPerformAction = () => {
     useEffect(() => {
         setRecommendationLoading(true);
         axios
-            .get(serverURL+"/hospital/performAction/")
+            .get(`${serverURL}/hospital/performAction/`)
             .then((response) => {
                 setPastActions(response.data.past_actions);
                 setNextAction(response.data.next_actions);
@@ -117,23 +117,30 @@ const HospitalPerformAction = () => {
                                 alert("Error adding to recommendation");
                             }
                         })
-                        window.location.reload();
+                        // window.location.reload();
                 }
                 else {
                     alert("Error performing action");
                 }
             })
+            .then(() => {
+                window.location.reload();
+            })
+            .catch((error) => {
+                console.error("Error fetching data: ", error);
+            });
+            
     };
     const handleReset = (e) => {
         e.preventDefault();
         console.log('Resetting...');
         axios
-            .delete(serverURL+"/hospital/reset/")
+            .delete(serverURL+"/hospital/actionRecommendation/")
             .then((response) => {
                 console.log(response);
                 if (response.status === 204 || response.status === 201 || response.status === 200) {
                     axios
-                        .delete(serverURL+"/hospital/actionRecommendation/")
+                        .delete(serverURL+"/hospital/reset/")
                         .then((response) => {
                             console.log(response);
                             if (response.status !== 204 && response.status !== 201 && response.status !== 200) {
@@ -230,8 +237,9 @@ const HospitalPerformAction = () => {
                             </select>
                         </label>
                         <div className="flex items-center justify-between mt-4">
-                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded focus:outline-none focus:shadow-outline" 
-                                    type="submit"
+                            <button 
+                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded focus:outline-none focus:shadow-outline" 
+                                type="submit"
                             >
                                 Submit
                             </button>
