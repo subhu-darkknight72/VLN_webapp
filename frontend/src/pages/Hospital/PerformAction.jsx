@@ -6,8 +6,8 @@ import Base from "../../components/hospital/base";
 import FooterComponent from "../../components/footerComponent";
 import floorPlan from "../../assets/hospital/floorPlans/sampleFloorPlan.png";
 
-// const serverURL = "https://vln-webapp.onrender.com";
-const serverURL = "http://127.0.0.1:8000";
+const serverURL = "https://vln-webapp.onrender.com";
+// const serverURL = "http://127.0.0.1:8000";
 
 const HospitalPerformAction = () => {
     const [pastActions, setPastActions] = useState([]);
@@ -96,8 +96,9 @@ const HospitalPerformAction = () => {
         .post(serverURL+"/hospital/performAction/", reqBody)
         .then((response) => {
             console.log(response);
-            if (response.status === 201 || response.status === 200) {
+            if (response.status !== 201 && response.status !== 200) {
                 alert("Error performing action");
+                return;
             }
             
             const new_obv = response.data.observation;
@@ -105,24 +106,28 @@ const HospitalPerformAction = () => {
                 "action": selectedOption,
                 "observation": new_obv
             }
-            let successMssg = "successfully completed the task";
-            // if the new observation is not empty, and contains the success message
-            // then alert the user that the task is completed
-            if (new_obv !== '' && new_obv.includes(successMssg)) {
-                alert("Task completed");
-                return;
-            }
             
             axios
             .post(serverURL+"/hospital/actionRecommendation/", addToRecomendation)
             .then((response) => {
                 console.log(response);
-                if (response.status !== 201 || response.status !== 200) {
+                if (response.status !== 201 && response.status !== 200) {
                     alert("Error adding to recommendation");
                     return;
                 }
                 window.location.reload();
             })
+            .catch((error) => {
+                console.error("Error fetching data: ", error);
+            });
+
+            // if the new observation is not empty, and contains the success message
+            // then alert the user that the task is completed
+            let successMssg = "successfully completed the task";
+            if (new_obv !== '' && new_obv.includes(successMssg)) {
+                alert("Task completed");
+                return;
+            }
         })
         .catch((error) => {
             console.error("Error fetching data: ", error);
